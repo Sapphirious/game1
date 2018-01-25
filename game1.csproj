@@ -282,7 +282,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CameraControls\Field.cs" />
+    <Compile Include="Assets\Scripts\Controls\FieldControls.cs" />
     <Compile Include="Assets\Scripts\Input\Bindings.cs" />
     <Compile Include="Assets\Scripts\PlayerPref\PlayerPrefManager.cs" />
     <Compile Include="Assets\Scripts\UI\CommandConsole\CmdConsoleManagement.cs" />
