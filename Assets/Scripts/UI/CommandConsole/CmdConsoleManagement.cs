@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class CmdConsoleManagement : MonoBehaviour
 {
+    private CmdConsoleSmall smallConsole;
+
     public bool consoleUse = true;
     private bool consoleUp = false;
 
@@ -20,6 +22,10 @@ public class CmdConsoleManagement : MonoBehaviour
         {
             Application.logMessageReceived += HandleLog;
         }
+        else
+        {
+            GameObject.Find("Scripts").GetComponent<CmdConsoleManagement>().enabled = false;//Disable this component if not using the console
+        }
     }
 
     // Update is called once per frame
@@ -27,14 +33,24 @@ public class CmdConsoleManagement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) == true)
         {
-            if (Input.GetKeyDown(Bindings.Console) == true)
+            if (Input.GetKeyDown(Bindings.Console) == true && consoleUp == false)//Open small the console
             {
-                Debug.Log("Shift tilded");
+                GameObject.Find("CommandConsole").GetComponent<Canvas>().worldCamera = Camera.current;
+                
+            }
+            else if (Input.GetKeyDown(Bindings.Console) == true && consoleUp == true)//Close the console
+            {
+
             }
         }
-        else if (Input.GetKeyDown(Bindings.Console) == true)
+        else if (Input.GetKeyDown(Bindings.Console) == true && consoleUp == false)//Open the big console
         {
+            GameObject.Find("CommandConsole").GetComponent<Canvas>().worldCamera = Camera.current;
             Debug.Log("tilded");
+        }
+        else if (Input.GetKeyDown(Bindings.Console) == true && consoleUp == true)//Close the console
+        {
+
         }
     }
     
