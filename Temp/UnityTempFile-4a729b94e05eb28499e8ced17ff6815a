@@ -178,11 +178,11 @@
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
 -define:UNITY_PRO_LICENSE
-Assets/Scripts/CameraControls/Field.cs
+Assets/Scripts/Controls/FieldControls.cs
 Assets/Scripts/Input/Bindings.cs
-Assets/Scripts/NewBehaviourScript.cs
 Assets/Scripts/PlayerPref/PlayerPrefManager.cs
 Assets/Scripts/UI/CommandConsole/CmdConsoleManagement.cs
+Assets/Scripts/UI/CommandConsole/CmdConsoleSmall.cs
 -r:"D:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
 -r:"D:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"
 -r:"D:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\UnityScript.dll"
