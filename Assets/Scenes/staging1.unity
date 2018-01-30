@@ -144,7 +144,7 @@ RectTransform:
   m_Children:
   - {fileID: 448577953}
   m_Father: {fileID: 1561813359}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.97, y: 0.84}
   m_AnchorMax: {x: 1, y: 1}
@@ -171,9 +171,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.875, g: 0.875, b: 0.875, a: 1}
+    m_PressedColor: {r: 0.6397059, g: 0.6397059, b: 0.6397059, a: 1}
+    m_DisabledColor: {r: 0.36764705, g: 0.36764705, b: 0.36764705, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -189,7 +189,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 106626452}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1386788980}
+        m_MethodName: closeConsole
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &106626452
@@ -503,7 +514,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1561813359}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.008, y: 0.16}
   m_AnchorMax: {x: 0.992, y: 1}
@@ -744,9 +755,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1187827643}
   - component: {fileID: 1187827644}
-  - component: {fileID: 1187827645}
   m_Layer: 0
-  m_Name: Script
+  m_Name: Scripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -776,18 +786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd0bcb1bda10f340accde6349df5299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1187827645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1187827642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22ba592923dc4384da3dd639b7e90934, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  consoleUse: 1
 --- !u!1 &1215675199
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +817,7 @@ RectTransform:
   - {fileID: 685685384}
   - {fileID: 265591278}
   m_Father: {fileID: 1561813359}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.01, y: 0.01}
   m_AnchorMax: {x: 0.99, y: 0.14}
@@ -1022,6 +1020,7 @@ GameObject:
   - component: {fileID: 1386788977}
   - component: {fileID: 1386788976}
   - component: {fileID: 1386788975}
+  - component: {fileID: 1386788980}
   m_Layer: 5
   m_Name: CommandConsole
   m_TagString: Untagged
@@ -1072,7 +1071,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1386788974}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 2014069011}
@@ -1105,6 +1104,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1386788980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386788974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ba592923dc4384da3dd639b7e90934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  consoleUse: 1
 --- !u!1 &1439250177 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 3d73b41cee749b64ba1c2d8bbeeda0d3, type: 3}
@@ -1133,6 +1144,7 @@ GameObject:
   - component: {fileID: 1561813359}
   - component: {fileID: 1561813361}
   - component: {fileID: 1561813360}
+  - component: {fileID: 1561813362}
   m_Layer: 5
   m_Name: CmdConsole_sml
   m_TagString: Untagged
@@ -1150,9 +1162,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 106626450}
   - {fileID: 1215675200}
   - {fileID: 606927469}
+  - {fileID: 106626450}
   m_Father: {fileID: 1386788978}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1194,6 +1206,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1561813358}
+--- !u!114 &1561813362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1561813358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9450f08a67cfe64295b054a73558170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  YMin: 0.66
+  YMax: 1
+  speed: 4
 --- !u!1 &1900137794
 GameObject:
   m_ObjectHideFlags: 0
