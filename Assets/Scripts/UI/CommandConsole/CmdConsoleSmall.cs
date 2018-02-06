@@ -15,7 +15,7 @@ public class CmdConsoleSmall : MonoBehaviour
     private void Awake()
     {
         cmdConsoleManagement = GameObject.Find("CommandConsole").GetComponent<CmdConsoleManagement>();
-        //textBox = 
+        textBox = GameObject.Find("CommandConsole/CmdConsole_sml/Scroll View/Text").GetComponent<UnityEngine.UI.Text>();
     }
 
     public void openConsole()
@@ -34,14 +34,14 @@ public class CmdConsoleSmall : MonoBehaviour
 
     private void tidyUp()
     {
-        GameObject.Find("CommandConsole/CmdConsole_sml/InputField").GetComponent<UnityEngine.UI.InputField>().text = "";
-        GameObject.Find("CommandConsole/CmdConsole_sml/InputField/Text").GetComponent<UnityEngine.UI.Text>().text = "";
+        this.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
         GameObject.Find("CommandConsole").GetComponent<Canvas>().enabled = false;
         this.gameObject.SetActive(false);//Must be the last thing ran
     }
 
     private void Update()
     {
+        //------ [START] Movement ------
         if (moveConsole == true && ((speed > 0 && GetComponent<RectTransform>().anchorMax.y > YMax) || (speed < 0 && GetComponent<RectTransform>().anchorMax.y < 1 + YMax - YMin)))
         {
             GetComponent<RectTransform>().anchorMax = new Vector2(GetComponent<RectTransform>().anchorMax.x, GetComponent<RectTransform>().anchorMax.y - Time.deltaTime * speed);
@@ -63,5 +63,8 @@ public class CmdConsoleSmall : MonoBehaviour
                 tidyUp();
             }
         }
+        //------ [END] Movement ------
+
+        textBox.text = cmdConsoleManagement.output.ToString();
     }
 }
