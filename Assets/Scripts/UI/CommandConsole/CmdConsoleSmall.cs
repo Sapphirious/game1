@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class CmdConsoleSmall : MonoBehaviour
@@ -34,7 +37,7 @@ public class CmdConsoleSmall : MonoBehaviour
 
     private void tidyUp()
     {
-        this.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
+        //this.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
         GameObject.Find("CommandConsole").GetComponent<Canvas>().enabled = false;
         this.gameObject.SetActive(false);//Must be the last thing ran
     }
@@ -65,6 +68,15 @@ public class CmdConsoleSmall : MonoBehaviour
         }
         //------ [END] Movement ------
 
-        textBox.text = cmdConsoleManagement.output.ToString();
+        textBox.text = String.Join(String.Empty, cmdConsoleManagement.getSmlCmdOutput().ToArray());
+
+        //Check if the text box is too big
+        if (textBox.text.Length > 6000)
+        {
+            cmdConsoleManagement.trimSmallLog();
+        }
+
+        //Remove any new lines from the input field
+        this.GetComponentInChildren<UnityEngine.UI.InputField>().text = Regex.Replace(this.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty);
     }
 }

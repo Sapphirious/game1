@@ -90,12 +90,20 @@ public class CommandProcessor : MonoBehaviour
         }
         else if (commandComponents.Count > 2 && Int32.TryParse(commandComponents[1].ToString(), out repeats) == true)
         {
-            Debug.Log("Echoing <i>" + command.Substring(6 + (int)(Math.Floor(Math.Log10(repeats) + 1)), command.Length - 6 - (int)(Math.Floor(Math.Log10(repeats) + 1))) + "</i> " + repeats 
-                + ((repeats == 1) ? " time..." : " times..."));
-
-            for (int i = 0; i < repeats; i++)
+            if (repeats <= 256)
             {
-                Debug.Log("@echo: <i>" + command.Substring(6 + (int)(Math.Floor(Math.Log10(repeats) + 1)), command.Length - 6 - (int)(Math.Floor(Math.Log10(repeats) + 1))) + "</i>");
+                Debug.Log("Echoing <i>" + command.Substring(6 + (int)(Math.Floor(Math.Log10(repeats) + 1)), command.Length - 6 - (int)(Math.Floor(Math.Log10(repeats) + 1))) + "</i> " + repeats
+                    + ((repeats == 1) ? " time..." : " times..."));
+
+                System.Object[] args = new System.Object[2];
+                args[0] = command;
+                args[1] = repeats;
+
+                StartCoroutine("multiEcho", args);
+            }
+            else
+            {
+                Debug.LogWarning("You may not echo a message more than 256 times per message.");
             }
         }
         else
@@ -104,34 +112,63 @@ public class CommandProcessor : MonoBehaviour
         }
     }
 
+    IEnumerator multiEcho(System.Object[] args)
+    {
+        String command = (String) args[0];
+        int repeats = (int) args[1];
+
+        for (int i = 0; i < repeats; i++)
+        {
+            Debug.Log("@echo: <i>" + command.Substring(6 + (int)(Math.Floor(Math.Log10(repeats) + 1)), command.Length - 6 - (int)(Math.Floor(Math.Log10(repeats) + 1))) + "</i>");
+
+            if (i % 6 == 0 || i+1 == repeats)
+            { 
+                yield return null;
+            }
+        }
+    }
+
     private void profiler()
     {
         //Make the subroot lowercase
-        commandComponents[1] = commandComponents[1].ToLower();
+        if (commandComponents.Count > 1)
+        {
+            commandComponents[1] = commandComponents[1].ToLower();
+        }
 
         if (commandComponents.Count == 1)
         {
-            Debug.LogWarning("Missing second argument in structure for profiler: prof {all/1|min/2|off/0}");
+            //Debug.LogWarning("Missing second argument in structure for profiler: prof {off/0|all/1|min/2|fps/3}");
+            Debug.LogWarning("Missing second argument in structure for profiler: prof {off/0|fps/1}");
         }
-        else if (commandComponents.Count > 2 && (commandComponents[1].Equals("all") || commandComponents[1].Equals("1") || commandComponents[1].Equals("min")
-            || commandComponents[1].Equals("2") || commandComponents[1].Equals("off") || commandComponents[1].Equals("0")))
+        //else if (commandComponents.Count > 1 && (commandComponents[1].Equals("all") || commandComponents[1].Equals("1") || commandComponents[1].Equals("min") || commandComponents[1].Equals("2") 
+        //    || commandComponents[1].Equals("off") || commandComponents[1].Equals("0") || commandComponents[1].Equals("fps") || commandComponents[1].Equals("3")))
+        else if (commandComponents.Count > 1 && (commandComponents[1].Equals("1") || commandComponents[1].Equals("off") || commandComponents[1].Equals("0") || commandComponents[1].Equals("fps")))
         {
             switch (commandComponents[1].ToString())
             {
                 case "all":
-                case "1":
+                //case "1":
+                    GameObject.Find("Profiler").GetComponent<Profiler>().changeProfiler(1);
                     break;
                 case "min":
                 case "2":
+                    GameObject.Find("Profiler").GetComponent<Profiler>().changeProfiler(2);
                     break;
                 case "off":
                 case "0":
+                    GameObject.Find("Profiler").GetComponent<Profiler>().changeProfiler(0);
+                    break;
+                case "fps":
+                case "1":
+                    GameObject.Find("Profiler").GetComponent<Profiler>().changeProfiler(3);
                     break;
             }
         }
         else
         {
-            Debug.LogWarning("Invalid second argument in structure for profiler: prof {all/1|min/2|off/0}");
+            //Debug.LogWarning("Invalid second argument in structure for profiler: prof {off/0|all/1|min/2|fps/3}");
+            Debug.LogWarning("Invalid second argument in structure for profiler: prof {off/0|fps/1}");
         }
     }
 
@@ -139,11 +176,23 @@ public class CommandProcessor : MonoBehaviour
     {
         Debug.Log("Valid commands: ");
 
-        for (int i = 0; i < validCommands.Length; i += 2)
+        for (int i = 0; i < validCommands.Length; i += 4)
         {
-            if (i + 2 <= validCommands.Length)
+            if (i + 4 <= validCommands.Length)
+            {
+                Debug.Log("\t" + validCommands[i] + "\t\t\t" + validCommands[i + 1] + "\t\t\t" + validCommands[i + 2] + "\t\t\t" + validCommands[i + 3]);
+            }
+            else if (i + 3 <= validCommands.Length)
+            {
+                Debug.Log("\t" + validCommands[i] + "\t\t\t" + validCommands[i + 1] + "\t\t\t" + validCommands[i + 2]);
+            }
+            else if (i + 2 <= validCommands.Length)
             {
                 Debug.Log("\t" + validCommands[i] + "\t\t\t" + validCommands[i + 1]);
+            }
+            else
+            {
+                Debug.Log("\t" + validCommands[i]);
             }
         }
     }
