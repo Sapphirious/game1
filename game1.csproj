@@ -285,10 +285,13 @@
     <Compile Include="Assets\Scripts\Controls\FieldControls.cs" />
     <Compile Include="Assets\Scripts\Input\Bindings.cs" />
     <Compile Include="Assets\Scripts\PlayerPref\PlayerPrefManager.cs" />
+    <Compile Include="Assets\Scripts\UI\CommandConsole\CmdConsoleLarge.cs" />
     <Compile Include="Assets\Scripts\UI\CommandConsole\CmdConsoleManagement.cs" />
     <Compile Include="Assets\Scripts\UI\CommandConsole\CmdConsoleSmall.cs" />
     <Compile Include="Assets\Scripts\UI\CommandConsole\CommandProcessor.cs" />
     <Compile Include="Assets\Scripts\UI\Profiler\Profiler.cs" />
+    <Compile Include="Assets\Scripts\UI\Tools\UIDragBehavior.cs" />
+    <Compile Include="Assets\Scripts\VersionControl\Version.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
