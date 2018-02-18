@@ -1095,8 +1095,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1063297441}
   m_HandleRect: {fileID: 1063297440}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2006,7 +2006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consoleUse: 1
-  consoleVersion: 1.0
+  consoleVersion: 1.0B
 --- !u!1 &1419385114
 GameObject:
   m_ObjectHideFlags: 0
