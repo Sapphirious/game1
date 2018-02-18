@@ -84,7 +84,7 @@ public class CmdConsoleManagement : MonoBehaviour
                 if (inputHistory.Count == 0 
                     || Regex.Replace(GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty) != inputHistory[0])
                 {
-                    inputHistory.Insert(0, GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text.Substring(0, GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text.Length - 1));
+                    inputHistory.Insert(0, Regex.Replace(GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty));
                 }
 
                 GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
@@ -98,7 +98,7 @@ public class CmdConsoleManagement : MonoBehaviour
                 if (inputHistory.Count == 0
                     || Regex.Replace(GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty) != inputHistory[0])
                 {
-                    inputHistory.Insert(0, GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text.Substring(0, GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text.Length - 1));
+                    inputHistory.Insert(0, Regex.Replace(GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty));
                 }
 
                 GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
