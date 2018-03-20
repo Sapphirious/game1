@@ -42,6 +42,12 @@ public class CmdConsoleSmall : MonoBehaviour
         this.gameObject.SetActive(false);//Must be the last thing ran
     }
 
+    public void checkForInvalidCharas(UnityEngine.UI.InputField inputField)
+    {
+        //Remove any new lines from the input field
+        inputField.text = Regex.Replace(this.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty);
+    }
+
     private void Update()
     {
         //------ [START] Movement ------
@@ -75,8 +81,5 @@ public class CmdConsoleSmall : MonoBehaviour
         {
             cmdConsoleManagement.trimSmallLog();
         }
-
-        //Remove any new lines from the input field
-        this.GetComponentInChildren<UnityEngine.UI.InputField>().text = Regex.Replace(this.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty);
     }
 }

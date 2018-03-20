@@ -86,7 +86,7 @@ public class CommandProcessor : MonoBehaviour
 
         if (commandComponents.Count == 1)
         {
-            Debug.LogWarning("Missing second argument in structure for echo: echo {number of echos|message} [message]");
+            Debug.LogWarning("Missing second argument in structure for echo: echo {number of echos|\"err\"|message} [message]");
         }
         else if (commandComponents.Count > 2 && Int32.TryParse(commandComponents[1].ToString(), out repeats) == true)
         {
@@ -105,6 +105,10 @@ public class CommandProcessor : MonoBehaviour
             {
                 Debug.LogWarning("You may not echo a message more than 256 times per message.");
             }
+        }
+        else if (commandComponents.Count > 2 && commandComponents[1].ToLower() == "err")
+        {
+            Debug.LogError("@echo: <i>" + command.Substring(command.IndexOf("err") + 3, command.Length - command.IndexOf("err") - 3) + "</i>");//TODO fix this
         }
         else
         {
@@ -130,6 +134,8 @@ public class CommandProcessor : MonoBehaviour
 
     private void profiler()
     {
+        String profStruct = "prof {\"off\"/0|\"fps\"/1}";
+
         //Make the subroot lowercase
         if (commandComponents.Count > 1)
         {
@@ -139,7 +145,7 @@ public class CommandProcessor : MonoBehaviour
         if (commandComponents.Count == 1)
         {
             //Debug.LogWarning("Missing second argument in structure for profiler: prof {off/0|all/1|min/2|fps/3}");
-            Debug.LogWarning("Missing second argument in structure for profiler: prof {off/0|fps/1}");
+            Debug.LogWarning("Missing second argument in structure for profiler: " + profStruct);
         }
         //else if (commandComponents.Count > 1 && (commandComponents[1].Equals("all") || commandComponents[1].Equals("1") || commandComponents[1].Equals("min") || commandComponents[1].Equals("2") 
         //    || commandComponents[1].Equals("off") || commandComponents[1].Equals("0") || commandComponents[1].Equals("fps") || commandComponents[1].Equals("3")))
@@ -168,7 +174,7 @@ public class CommandProcessor : MonoBehaviour
         else
         {
             //Debug.LogWarning("Invalid second argument in structure for profiler: prof {off/0|all/1|min/2|fps/3}");
-            Debug.LogWarning("Invalid second argument in structure for profiler: prof {off/0|fps/1}");
+            Debug.LogWarning("Invalid second argument in structure for profiler: " + profStruct);
         }
     }
 
