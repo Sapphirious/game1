@@ -92,17 +92,17 @@ public class CmdConsoleLarge : MonoBehaviour
     IEnumerator updateColliderAfterFrame()
     {
         yield return new WaitForEndOfFrame();
-        updateCollider(textSegments[textSegments.Count - 1].First.GetComponent<BoxCollider2D>());
+        updateCollider(textSegments[textSegments.Count - 1].First);
     }
 
     /// <summary>
     /// Update the 2D box collider
     /// </summary>
     /// <param name="boxCollider"></param>
-    private void updateCollider(BoxCollider2D boxCollider)
+    private void updateCollider(GameObject obj)
     {
-        boxCollider.offset = new Vector2(1, Math.Abs(textSegments[textSegments.Count - 1].First.GetComponent<RectTransform>().rect.height) / 2);
-        boxCollider.size = new Vector2(2, Math.Abs(textSegments[textSegments.Count - 1].First.GetComponent<RectTransform>().rect.height));
+        obj.GetComponent<BoxCollider2D>().offset = new Vector2(1, Math.Abs(obj.GetComponent<RectTransform>().rect.height) / 2);
+        obj.GetComponent<BoxCollider2D>().size = new Vector2(2, Math.Abs(obj.GetComponent<RectTransform>().rect.height));
     }
 
     public void checkForInvalidCharas(UnityEngine.UI.InputField inputField)
@@ -120,7 +120,7 @@ public class CmdConsoleLarge : MonoBehaviour
     {
         StringBuilder returnString = new StringBuilder();
 
-        for (int i = 0; i < newLines; i++)
+        for (int i = 0; i < newLines-1; i++)
         {
             returnString.Append("\n");
         }
@@ -141,19 +141,19 @@ public class CmdConsoleLarge : MonoBehaviour
         //Iterate through the text segments
         for (short i = 0; i < textSegments.Count; i++)
         {
-            updateCollider(textSegments[i].First.GetComponent<BoxCollider2D>());
+            updateCollider(textSegments[i].First);
 
             for (int j = 0; j < hits.Length; j++)
             {
                 if (hits[j].collider != null && hits[j].collider.gameObject == textSegments[i].First)
                 {
-                    textSegments[i].First.name = "TextSeg (Active)";//TODO remove after debugging
+                    //textSegments[i].First.name = "TextSeg (Active)";//TODO remove after debugging
                     textSegments[i].First.GetComponent<UnityEngine.UI.Text>().text = textSegments[i].Second.ToString();//Get cached text that was saved
                     break;
                 }
                 else if (j + 1 == hits.Length)
                 {
-                    textSegments[i].First.name = "TextSeg (Deactive)";//TODO remove after debugging
+                    //textSegments[i].First.name = "TextSeg (Deactive)";//TODO remove after debugging
                     textSegments[i].First.GetComponent<UnityEngine.UI.Text>().text = generateNewLines(linesInSegment[i]).ToString();//Get empty lines
                 }
             }

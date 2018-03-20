@@ -2039,7 +2039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consoleUse: 1
-  consoleVersion: 1.1
+  consoleVersion: 1.2
 --- !u!1 &1419385114
 GameObject:
   m_ObjectHideFlags: 0
