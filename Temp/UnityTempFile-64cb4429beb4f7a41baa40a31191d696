@@ -163,12 +163,12 @@
 -define:ENABLE_VSTU
 -define:UNITY_PRO_LICENSE
 Assets/Scripts/Controls/FieldControls.cs
+Assets/Scripts/DevTools/CommandConsole/CmdConsoleLarge.cs
+Assets/Scripts/DevTools/CommandConsole/CmdConsoleManagement.cs
+Assets/Scripts/DevTools/CommandConsole/CmdConsoleSmall.cs
+Assets/Scripts/DevTools/CommandConsole/CommandProcessor.cs
 Assets/Scripts/Input/Bindings.cs
 Assets/Scripts/PlayerPref/PlayerPrefManager.cs
-Assets/Scripts/UI/CommandConsole/CmdConsoleLarge.cs
-Assets/Scripts/UI/CommandConsole/CmdConsoleManagement.cs
-Assets/Scripts/UI/CommandConsole/CmdConsoleSmall.cs
-Assets/Scripts/UI/CommandConsole/CommandProcessor.cs
 Assets/Scripts/UI/Profiler/Profiler.cs
 Assets/Scripts/UI/Tools/UIDragBehavior.cs
 Assets/Scripts/VersionControl/Version.cs

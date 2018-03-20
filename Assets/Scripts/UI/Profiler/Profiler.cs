@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Profiler : MonoBehaviour
 {
@@ -89,8 +87,8 @@ public class Profiler : MonoBehaviour
             profilerOn = true;
         }
 
-        objectsCreated.Add("fps", Instantiate(new GameObject("FPS", typeof(RectTransform))) as GameObject);
-        objectsCreated.Add("fps_background", Instantiate(new GameObject("FPS_background", typeof(RectTransform))) as GameObject);
+        objectsCreated.Add("fps", new GameObject("FPS", typeof(RectTransform)) as GameObject);
+        objectsCreated.Add("fps_background", new GameObject("FPS_background", typeof(RectTransform)) as GameObject);
         setTextProperties(objectsCreated["fps"], objectsCreated["fps_background"], "FPS: #");
 
         if (doExtras == true)

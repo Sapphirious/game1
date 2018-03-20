@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -17,7 +15,6 @@ public class CmdConsoleManagement : MonoBehaviour
     public String consoleVersion = "";
 
     private List<String> smlCmdOutput = new List<String>();
-    private List<String> lrgCmdOutput = new List<String>();
 
     private List<String> inputHistory = new List<String>();
     private byte onHistory = 0;
@@ -88,6 +85,7 @@ public class CmdConsoleManagement : MonoBehaviour
                 }
 
                 GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
+                onHistory = 0;
             }
             //If large console is up
             else  if (GO_cmdConsoleLarge.activeInHierarchy == true && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true
@@ -99,9 +97,11 @@ public class CmdConsoleManagement : MonoBehaviour
                     || Regex.Replace(GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty) != inputHistory[0])
                 {
                     inputHistory.Insert(0, Regex.Replace(GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty));
+                    onHistory = 0;
                 }
 
                 GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
+                onHistory = 0;
             }
 
             if (inputHistory.Count > 32)
@@ -141,7 +141,7 @@ public class CmdConsoleManagement : MonoBehaviour
         }
     }
 
-    public void closeConsole()
+    private void closeConsole()
     {
         if (GO_cmdConsoleSmall.activeInHierarchy == true)//Small console
         {
@@ -155,22 +155,46 @@ public class CmdConsoleManagement : MonoBehaviour
     
     void HandleLog(string logString, string stackTrace, LogType type)
     {
+        List<String> listToSend = new List<String>();
+
         if (type == LogType.Error || type == LogType.Assert || type == LogType.Exception)
         {
             smlCmdOutput.Add("\n<color=red>" + logString + "</color>");
-            lrgCmdOutput.Add("\n<i><color=red>" + logString + "\n" + stackTrace + "</color></i>");
+
+            listToSend.Add("\n<color=red>" + logString + "\n");
+
+            if (stackTrace.Equals(String.Empty) == false)
+            {
+                listToSend[0] += "<i>";
+                listToSend.AddRange(Regex.Split(stackTrace, @"([\r\n|\r|\n])"));
+                listToSend.RemoveRange(listToSend.Count - 2, 1);
+                listToSend[listToSend.Count - 1] = Regex.Replace(listToSend[listToSend.Count - 1], @"\t|\n|\r|`", String.Empty);
+                listToSend[listToSend.Count - 1] += "</i>";
+            }
+
+            listToSend[listToSend.Count - 1] += "</color>";
         }
         else if(type == LogType.Warning)
         {
             smlCmdOutput.Add("\n<color=yellow>" + logString + "</color>");
-            lrgCmdOutput.Add("\n<color=yellow>" + logString + "\n<i>" + stackTrace.Substring(stackTrace.IndexOf("\n", stackTrace.IndexOf(")\n")) + 1,
-                stackTrace.IndexOf(")\n", stackTrace.IndexOf("\n", stackTrace.IndexOf("\n", stackTrace.IndexOf("\n")))) - stackTrace.IndexOf("\n", stackTrace.IndexOf("\n"))) + "</i></color>");
+
+            listToSend.Add("\n<color=yellow>" + logString);
+
+            if (stackTrace.Equals(String.Empty) == false)
+            {
+                listToSend.Add("\n<i>" + stackTrace.Substring(stackTrace.IndexOf("\n", stackTrace.IndexOf(")\n")) + 1,
+                    stackTrace.IndexOf(")\n", stackTrace.IndexOf("\n", stackTrace.IndexOf("\n", stackTrace.IndexOf("\n")))) - stackTrace.IndexOf("\n", stackTrace.IndexOf("\n"))) + "</i>");
+            }
+
+            listToSend[listToSend.Count - 1] += "</color>";
         }
         else
         {
             smlCmdOutput.Add("\n" + logString);
-            lrgCmdOutput.Add("\n" + logString);
+            listToSend.Add("\n" + logString);
         }
+
+        cmdConsoleLarge.recieveNewLogs(listToSend);
     }
 
     public void trimSmallLog()
@@ -178,19 +202,8 @@ public class CmdConsoleManagement : MonoBehaviour
         smlCmdOutput.RemoveRange(0, 8);
     }
 
-    public void trimLargeLogs()
-    {
-        
-        lrgCmdOutput.RemoveRange(0, 16);
-    }
-
     public List<String> getSmlCmdOutput()
     {
         return smlCmdOutput;
-    }
-
-    public List<String> getLrgCmdOutput()
-    {
-        return lrgCmdOutput;
     }
 }
