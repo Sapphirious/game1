@@ -7,12 +7,14 @@ using UnityEngine;
 
 public class CmdConsoleLarge : MonoBehaviour
 {
+    private GameObject GO_content;
     private RectTransform scrollView;
     private List<Pair<GameObject, StringBuilder>> textSegments = new List<Pair<GameObject, StringBuilder>>();
     private List<short> linesInSegment = new List<short>();
 
     private void Awake()
     {
+        GO_content = GameObject.Find("CommandConsole/CmdConsole_lrg/Scroll View/ViewPort/Content");
         scrollView = GameObject.Find("CommandConsole/CmdConsole_lrg/Scroll View").GetComponent<RectTransform>();
     }
 
@@ -36,7 +38,7 @@ public class CmdConsoleLarge : MonoBehaviour
         textSeg.layer = LayerMask.NameToLayer("UI");
 
         //Parent it
-        textSeg.transform.SetParent(GameObject.Find("CommandConsole/CmdConsole_lrg/Scroll View/ViewPort/Content").transform);
+        textSeg.transform.SetParent(GO_content.transform);
 
         //Set up the text component
         textSeg.AddComponent<UnityEngine.UI.Text>();
@@ -80,19 +82,14 @@ public class CmdConsoleLarge : MonoBehaviour
         //Count how many lines there are in the segment
         linesInSegment[linesInSegment.Count - 1] += (short)(newLog.Count);
 
-        updateColliderAfterFrame();
-
         //While there are more than 64 text segments (culling dependent), remove 1
         while (textSegments.Count > 64)
         {
+            Destroy(textSegments[0].First);
             textSegments.RemoveRange(0, 1);
         }
-    }
 
-    IEnumerator updateColliderAfterFrame()
-    {
-        yield return new WaitForEndOfFrame();
-        updateCollider(textSegments[textSegments.Count - 1].First);
+        checkForCulling();
     }
 
     /// <summary>

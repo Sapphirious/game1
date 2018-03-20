@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CmdConsoleManagement : MonoBehaviour
 {
@@ -30,12 +31,16 @@ public class CmdConsoleManagement : MonoBehaviour
             cmdConsoleLarge = GO_cmdConsoleLarge.GetComponent<CmdConsoleLarge>();
             commandProcessor = this.GetComponent<CommandProcessor>();
             Application.logMessageReceived += HandleLog;
-            Debug.Log("<i><b>Current game version: " + Version.version + "</b>\nCurrent console version: " + consoleVersion + "</i>");
         }
         else
         {
             this.GetComponent<CmdConsoleManagement>().enabled = false;//Disable this component if not using the console
         }
+    }
+
+    private void Start()
+    {
+        Debug.Log("<i><b>Current game version: " + Version.version + "</b>\nCurrent console version: " + consoleVersion + "</i>");
     }
 
     // Update is called once per frame
@@ -67,76 +72,61 @@ public class CmdConsoleManagement : MonoBehaviour
         else if (Input.GetKeyDown(Bindings.Console) == true && this.GetComponent<Canvas>().enabled == true)//Close the console
         {
             closeConsole();   
-        }
-
-        //Get command
-        if (Input.GetKeyDown(KeyCode.Return) == true)
-        {
-            //If small console is up
-            if (GO_cmdConsoleSmall.activeInHierarchy == true && GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true 
-                && GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text != String.Empty && GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text != "\n")
-            {
-                commandProcessor.processCommand(Regex.Replace(GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty));
-
-                if (inputHistory.Count == 0 
-                    || Regex.Replace(GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty) != inputHistory[0])
-                {
-                    inputHistory.Insert(0, Regex.Replace(GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty));
-                }
-
-                GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
-                onHistory = 0;
-            }
-            //If large console is up
-            else  if (GO_cmdConsoleLarge.activeInHierarchy == true && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true
-                && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text != String.Empty && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text != "\n")
-            {
-                commandProcessor.processCommand(Regex.Replace(GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty));
-
-                if (inputHistory.Count == 0
-                    || Regex.Replace(GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty) != inputHistory[0])
-                {
-                    inputHistory.Insert(0, Regex.Replace(GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty));
-                    onHistory = 0;
-                }
-
-                GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
-                onHistory = 0;
-            }
-
-            if (inputHistory.Count > 32)
-            {
-                inputHistory.RemoveAt(inputHistory.Count-1);
-            }
-        }
+        } 
 
         //Pull from the history
         if (Input.GetKeyDown(KeyCode.UpArrow) == true && onHistory < inputHistory.Count)
         {
-            onHistory++;
             //If small console is up
             if (GO_cmdConsoleSmall.activeInHierarchy == true && GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true)
             {
+                onHistory++;
                 GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text = inputHistory[onHistory-1];
             }
             //If large console is up
             else if (GO_cmdConsoleLarge.activeInHierarchy == true && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true)
             {
+                onHistory++;
                 GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text = inputHistory[onHistory - 1];
             }
         }
         else if(Input.GetKeyDown(KeyCode.DownArrow) == true && onHistory > 0)
         {
-            onHistory--;
             //If small console is up
             if (GO_cmdConsoleSmall.activeInHierarchy == true && GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true)
             {
+                onHistory--;
                 GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text = ((onHistory > 0) ? inputHistory[onHistory - 1] : "");
             }
             //If large console is up
             else if (GO_cmdConsoleLarge.activeInHierarchy == true && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true)
             {
+                onHistory--;
                 GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text = ((onHistory > 0) ? inputHistory[onHistory - 1] : "");
+            }
+        }
+    }
+
+    public void getInput(InputField input)
+    {
+        if (Input.GetKeyDown(KeyCode.Return) == true)
+        {
+            if ((GO_cmdConsoleSmall.activeInHierarchy == true || GO_cmdConsoleLarge.activeInHierarchy == true) && input.text != String.Empty && input.text.Equals("\n") == false)
+            {
+                commandProcessor.processCommand(input.text);
+
+                if (inputHistory.Count == 0 || input.text != inputHistory[0])
+                {
+                    inputHistory.Insert(0, input.text);
+                }
+
+                input.text = "";
+                onHistory = 0;
+            }
+
+            if (inputHistory.Count > 32)
+            {
+                inputHistory.RemoveAt(inputHistory.Count - 1);
             }
         }
     }
