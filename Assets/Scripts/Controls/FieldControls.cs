@@ -40,7 +40,8 @@ public class FieldControls : Bindings
         controller.AddForce(fVelocity, ForceMode.VelocityChange);
         //Allows for the manipulation of gravity on the character
         controller.AddForce(new Vector3(0, -gravity * controller.mass, 0));
-    }
+        controller.rotation = camera.GetComponent<Transform>().rotation;
+   }
 
     //Method used to calculate the speed of which the character is moving in a given direction
     private Vector3 calculateVelocity(Vector3 fVelocity)
