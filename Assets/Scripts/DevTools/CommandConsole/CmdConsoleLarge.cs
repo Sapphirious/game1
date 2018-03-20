@@ -89,15 +89,16 @@ public class CmdConsoleLarge : MonoBehaviour
             textSegments.RemoveRange(0, 1);
         }
 
-        checkForCulling();
+        updateCollider(textSegments[textSegments.Count-1].First);
     }
 
     /// <summary>
     /// Update the 2D box collider
     /// </summary>
     /// <param name="boxCollider"></param>
-    private void updateCollider(GameObject obj)
+    IEnumerator updateCollider(GameObject obj)
     {
+        yield return 0;
         obj.GetComponent<BoxCollider2D>().offset = new Vector2(1, Math.Abs(obj.GetComponent<RectTransform>().rect.height) / 2);
         obj.GetComponent<BoxCollider2D>().size = new Vector2(2, Math.Abs(obj.GetComponent<RectTransform>().rect.height));
     }
@@ -144,13 +145,13 @@ public class CmdConsoleLarge : MonoBehaviour
             {
                 if (hits[j].collider != null && hits[j].collider.gameObject == textSegments[i].First)
                 {
-                    //textSegments[i].First.name = "TextSeg (Active)";//TODO remove after debugging
+                    textSegments[i].First.name = "TextSeg (Active)";//TODO remove after debugging
                     textSegments[i].First.GetComponent<UnityEngine.UI.Text>().text = textSegments[i].Second.ToString();//Get cached text that was saved
                     break;
                 }
                 else if (j + 1 == hits.Length)
                 {
-                    //textSegments[i].First.name = "TextSeg (Deactive)";//TODO remove after debugging
+                    textSegments[i].First.name = "TextSeg (Deactive)";//TODO remove after debugging
                     textSegments[i].First.GetComponent<UnityEngine.UI.Text>().text = generateNewLines(linesInSegment[i]).ToString();//Get empty lines
                 }
             }

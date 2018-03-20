@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7157b8d0a1cfb7445b58763e7fa2af18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affectParent: 0
+  affectParent: 1
 --- !u!114 &535518013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2061,7 +2061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consoleUse: 1
-  consoleVersion: 1.2A
+  consoleVersion: 1.2B
 --- !u!1 &1419385114
 GameObject:
   m_ObjectHideFlags: 0

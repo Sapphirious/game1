@@ -128,6 +128,8 @@ public class CmdConsoleManagement : MonoBehaviour
             {
                 inputHistory.RemoveAt(inputHistory.Count - 1);
             }
+
+            input.ActivateInputField();
         }
     }
 
