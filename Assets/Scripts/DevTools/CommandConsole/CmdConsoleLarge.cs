@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -79,13 +80,19 @@ public class CmdConsoleLarge : MonoBehaviour
         //Count how many lines there are in the segment
         linesInSegment[linesInSegment.Count - 1] += (short)(newLog.Count);
 
-        updateCollider(textSegments[textSegments.Count - 1].First.GetComponent<BoxCollider2D>());
+        updateColliderAfterFrame();
 
         //While there are more than 64 text segments (culling dependent), remove 1
         while (textSegments.Count > 64)
         {
             textSegments.RemoveRange(0, 1);
         }
+    }
+
+    IEnumerator updateColliderAfterFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        updateCollider(textSegments[textSegments.Count - 1].First.GetComponent<BoxCollider2D>());
     }
 
     /// <summary>
@@ -130,8 +137,6 @@ public class CmdConsoleLarge : MonoBehaviour
 
         //Cast a ray on the leftmost side of the scroll view to collide with the text segments
         RaycastHit2D[] hits = Physics2D.RaycastAll(corners[0], Vector2.up, corners[1].y - corners[0].y);
-
-
 
         //Iterate through the text segments
         for (short i = 0; i < textSegments.Count; i++)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pair<T, U> : MonoBehaviour
+public class Pair<T, U>
 {
     public Pair(T first, U second)
     {
