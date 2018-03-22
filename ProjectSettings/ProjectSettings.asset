@@ -11,7 +11,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Eagle Studios
   productName: game1
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -634,9 +634,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 2db2d12b-b9bb-4e15-9bf2-2f37796b4b7f
+  cloudProjectId: 7c767645-cec2-4341-84f5-e413ee742d90
   projectName: game1
-  organizationId: sapphirious
+  organizationId: xwheat32x
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
