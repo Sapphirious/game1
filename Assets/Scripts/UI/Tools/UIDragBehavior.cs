@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIDragBehavior : MonoBehaviour
 {
-    public bool affectParent = false;
+    public bool affectParent = true;
     private Vector3 mousePosOnClick = new Vector3();
     private bool wasClickedFirst = false;
 
