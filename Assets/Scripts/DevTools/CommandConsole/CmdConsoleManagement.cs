@@ -15,8 +15,6 @@ public class CmdConsoleManagement : MonoBehaviour
     public bool consoleUse = true;
     public String consoleVersion = "";
 
-    private List<String> smlCmdOutput = new List<String>();
-
     private List<String> inputHistory = new List<String>();
     private byte onHistory = 0;
 
@@ -54,6 +52,7 @@ public class CmdConsoleManagement : MonoBehaviour
                 this.GetComponent<Canvas>().enabled = true;
                 GO_cmdConsoleSmall.SetActive(false);
                 GO_cmdConsoleLarge.SetActive(true);
+                cmdConsoleLarge.openConsole();
             }
             else if (Input.GetKeyDown(Bindings.Console) == true && this.GetComponent<Canvas>().enabled == true)//Close the console
             {
@@ -82,12 +81,14 @@ public class CmdConsoleManagement : MonoBehaviour
             {
                 onHistory++;
                 GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text = inputHistory[onHistory-1];
+                GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().caretPosition = inputHistory[onHistory - 1].Length;
             }
             //If large console is up
             else if (GO_cmdConsoleLarge.activeInHierarchy == true && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true)
             {
                 onHistory++;
                 GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text = inputHistory[onHistory - 1];
+                GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().caretPosition = inputHistory[onHistory - 1].Length;
             }
         }
         else if(Input.GetKeyDown(KeyCode.DownArrow) == true && onHistory > 0)
@@ -97,12 +98,14 @@ public class CmdConsoleManagement : MonoBehaviour
             {
                 onHistory--;
                 GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().text = ((onHistory > 0) ? inputHistory[onHistory - 1] : "");
+                GO_cmdConsoleSmall.GetComponentInChildren<UnityEngine.UI.InputField>().caretPosition = ((onHistory > 0) ? inputHistory[onHistory - 1] : "").Length;
             }
             //If large console is up
             else if (GO_cmdConsoleLarge.activeInHierarchy == true && GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().isFocused == true)
             {
                 onHistory--;
                 GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().text = ((onHistory > 0) ? inputHistory[onHistory - 1] : "");
+                GO_cmdConsoleLarge.GetComponentInChildren<UnityEngine.UI.InputField>().caretPosition = ((onHistory > 0) ? inputHistory[onHistory - 1] : "").Length;
             }
         }
     }
@@ -151,7 +154,7 @@ public class CmdConsoleManagement : MonoBehaviour
 
         if (type == LogType.Error || type == LogType.Assert || type == LogType.Exception)
         {
-            smlCmdOutput.Add("\n<color=red>" + logString + "</color>");
+            cmdConsoleSmall.recieveNewLogs("\n<color=red>" + logString + "</color>");
 
             listToSend.Add("\n<color=red>" + logString + "\n");
 
@@ -168,7 +171,7 @@ public class CmdConsoleManagement : MonoBehaviour
         }
         else if(type == LogType.Warning)
         {
-            smlCmdOutput.Add("\n<color=yellow>" + logString + "</color>");
+            cmdConsoleSmall.recieveNewLogs("\n<color=yellow>" + logString + "</color>");
 
             listToSend.Add("\n<color=yellow>" + logString);
 
@@ -182,20 +185,10 @@ public class CmdConsoleManagement : MonoBehaviour
         }
         else
         {
-            smlCmdOutput.Add("\n" + logString);
+            cmdConsoleSmall.recieveNewLogs("\n" + logString);
             listToSend.Add("\n" + logString);
         }
 
         cmdConsoleLarge.recieveNewLogs(listToSend);
-    }
-
-    public void trimSmallLog()
-    {
-        smlCmdOutput.RemoveRange(0, 8);
-    }
-
-    public List<String> getSmlCmdOutput()
-    {
-        return smlCmdOutput;
     }
 }

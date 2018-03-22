@@ -18,11 +18,36 @@ public class CmdConsoleLarge : MonoBehaviour
         scrollView = GameObject.Find("CommandConsole/CmdConsole_lrg/Scroll View").GetComponent<RectTransform>();
     }
 
+    public void openConsole()
+    {
+        //While there are more than 64 text segments (culling dependent), remove 1
+        while (textSegments.Count > 64)
+        {
+            Destroy(textSegments[0].First);
+            textSegments.RemoveRange(0, 1);
+        }
+
+        StartCoroutine("updateCollider", getArrayOfGameObjects());
+        checkForCulling();
+    }
+
     public void closeConsole()
     {
         this.GetComponentInChildren<UnityEngine.UI.InputField>().text = "";
         GameObject.Find("CommandConsole").GetComponent<Canvas>().enabled = false;
         this.gameObject.SetActive(false);//Must be the last thing ran
+    }
+
+    private GameObject[] getArrayOfGameObjects()
+    {
+        List<GameObject> returnValue = new List<GameObject>();
+
+        for (int i = 0; i < textSegments.Count; i++)
+        {
+            returnValue.Add(textSegments[i].First);
+        }
+
+        return returnValue.ToArray();
     }
 
     /// <summary>
@@ -71,7 +96,7 @@ public class CmdConsoleLarge : MonoBehaviour
         if (textSegments.Count == 0 || linesInSegment[linesInSegment.Count - 1] >= 20)
         {
             createTextSegment();
-            //Remove any unwanted new lines or returns
+            //Remove any unwanted new lines or returns (THIS IS NEEDED TO MAKE SURE THERE ISN'T AN EXTRA NEW LINE WHEN A NEW TEXT SEGMENT IS GENERATED)
             newLog[0]= Regex.Replace(newLog[0].Substring(0, 1), @"\n|\r|\r\n", String.Empty) + newLog[0].Substring(1, newLog[0].Length-1);
         }
 
@@ -89,24 +114,25 @@ public class CmdConsoleLarge : MonoBehaviour
             textSegments.RemoveRange(0, 1);
         }
 
-        updateCollider(textSegments[textSegments.Count-1].First);
+        if (this.gameObject.activeInHierarchy == true)
+        {
+            StartCoroutine("updateCollider", new GameObject[] { textSegments[textSegments.Count - 1].First });
+        }
     }
 
     /// <summary>
     /// Update the 2D box collider
     /// </summary>
     /// <param name="boxCollider"></param>
-    IEnumerator updateCollider(GameObject obj)
+    IEnumerator updateCollider(GameObject[] objs)
     {
-        yield return 0;
-        obj.GetComponent<BoxCollider2D>().offset = new Vector2(1, Math.Abs(obj.GetComponent<RectTransform>().rect.height) / 2);
-        obj.GetComponent<BoxCollider2D>().size = new Vector2(2, Math.Abs(obj.GetComponent<RectTransform>().rect.height));
-    }
+        yield return null;
 
-    public void checkForInvalidCharas(UnityEngine.UI.InputField inputField)
-    {
-        //Remove any new lines from the input field
-        inputField.text = Regex.Replace(this.GetComponentInChildren<UnityEngine.UI.InputField>().text, @"\t|\n|\r|`", String.Empty);
+        for (int i = 0; i < objs.Length; i++)
+        {
+            objs[i].GetComponent<BoxCollider2D>().offset = new Vector2(1, Math.Abs(objs[i].GetComponent<RectTransform>().rect.height) / 2);
+            objs[i].GetComponent<BoxCollider2D>().size = new Vector2(2, Math.Abs(objs[i].GetComponent<RectTransform>().rect.height));
+        }
     }
 
     /// <summary>
@@ -129,6 +155,13 @@ public class CmdConsoleLarge : MonoBehaviour
     ///<summary>Gets called whenever the scrollbar updates</summary>
     public void checkForCulling()
     {
+        StartCoroutine("checkCulling");
+    }
+
+    IEnumerator checkCulling()
+    {
+        yield return null;
+
         //Get the corner positions from the scroll view gameobject
         Vector3[] corners = new Vector3[4];
         scrollView.GetWorldCorners(corners);
@@ -139,8 +172,6 @@ public class CmdConsoleLarge : MonoBehaviour
         //Iterate through the text segments
         for (short i = 0; i < textSegments.Count; i++)
         {
-            updateCollider(textSegments[i].First);
-
             for (int j = 0; j < hits.Length; j++)
             {
                 if (hits[j].collider != null && hits[j].collider.gameObject == textSegments[i].First)

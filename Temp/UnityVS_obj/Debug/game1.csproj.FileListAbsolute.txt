@@ -1,5 +1,3 @@
-D:\Unity\Projects\game1\Temp\UnityVS_obj\Debug\game1.csprojResolveAssemblyReference.cache
-D:\Unity\Projects\game1\Temp\UnityVS_obj\Debug\game1.csproj.CoreCompileInputs.cache
 D:\Unity\Projects\game1\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
 D:\Unity\Projects\game1\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
 D:\Unity\Projects\game1\Temp\UnityVS_bin\Debug\nunit.framework.dll
@@ -129,6 +127,8 @@ D:\Unity\Projects\game1\Temp\UnityVS_bin\Debug\UnityEngine.UIAutomation.xml
 D:\Unity\Projects\game1\Temp\UnityVS_bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
 D:\Unity\Projects\game1\Temp\UnityVS_bin\Debug\UnityEngine.HoloLens.xml
 D:\Unity\Projects\game1\Temp\UnityVS_bin\Debug\UnityEngine.SpatialTracking.xml
+D:\Unity\Projects\game1\Temp\UnityVS_obj\Debug\game1.csprojResolveAssemblyReference.cache
+D:\Unity\Projects\game1\Temp\UnityVS_obj\Debug\game1.csproj.CoreCompileInputs.cache
 D:\Unity\Projects\game1\Temp\UnityVS_obj\Debug\game1.csproj.CopyComplete
 D:\Unity\Projects\game1\Temp\UnityVS_obj\Debug\Assembly-CSharp.dll
 D:\Unity\Projects\game1\Temp\UnityVS_obj\Debug\Assembly-CSharp.pdb
