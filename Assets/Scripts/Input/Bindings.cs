@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Bindings : MonoBehaviour
 {
@@ -13,7 +15,6 @@ public class Bindings : MonoBehaviour
     private static KeyCode[] back = new KeyCode[3];
     //Misc/debug
     private static readonly KeyCode console = KeyCode.BackQuote;
-    private static readonly KeyCode toggleFPS = KeyCode.F9;
 
     public static void setDefaults()
     {
@@ -153,14 +154,6 @@ public class Bindings : MonoBehaviour
         get
         {
             return console;
-        }
-    }
-
-    public static KeyCode ToggleFPS
-    {
-        get
-        {
-            return toggleFPS;
         }
     }
 }
