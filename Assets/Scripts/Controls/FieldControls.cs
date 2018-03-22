@@ -7,8 +7,8 @@ public class FieldControls : Bindings
 {
     public new Camera camera;
     public Rigidbody controller;
-    private int xAxis = 0;
-    private int yAxis = 0;
+    private float xAxis = 0;
+    private float yAxis = 0;
     private Vector3 move;
     public float speed = 10.0f;
     public float gravity = 50.0f;
@@ -40,7 +40,6 @@ public class FieldControls : Bindings
         controller.AddForce(fVelocity, ForceMode.VelocityChange);
         //Allows for the manipulation of gravity on the character
         controller.AddForce(new Vector3(0, -gravity * controller.mass, 0));
-        controller.rotation = camera.GetComponent<Transform>().rotation;
    }
 
     //Method used to calculate the speed of which the character is moving in a given direction
@@ -81,11 +80,12 @@ public class FieldControls : Bindings
 
         if (Input.GetKey(Right[0]) || Input.GetKey(Right[1]))
         {
+            
             yAxis = 1;
         }
 
         if (Input.GetKey(Backward[0]) || Input.GetKey(Backward[1]))
-        {
+        { 
             xAxis = -1;
         }
 
