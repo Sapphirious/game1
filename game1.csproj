@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\C# Tools\Pair.cs" />
+    <Compile Include="Assets\Scripts\Controls\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\Controls\FieldControls.cs" />
     <Compile Include="Assets\Scripts\DevTools\CommandConsole\CmdConsoleLarge.cs" />
     <Compile Include="Assets\Scripts\DevTools\CommandConsole\CmdConsoleManagement.cs" />
