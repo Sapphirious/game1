@@ -8,6 +8,7 @@ public class Bindings : MonoBehaviour
     private static KeyCode[] backward = new KeyCode[3];
     private static KeyCode[] left = new KeyCode[3];
     private static KeyCode[] right = new KeyCode[3];
+    private static KeyCode[] sprint = new KeyCode[3];
     //Menu
     private static KeyCode[] select = new KeyCode[3];
     private static KeyCode[] back = new KeyCode[3];
@@ -18,6 +19,7 @@ public class Bindings : MonoBehaviour
     public static void setDefaults()
     {
         PlayerPrefs.SetInt("controllerType", 0);
+        //Movement
         PlayerPrefs.SetInt("forward_1", (int)(KeyCode.W));
         PlayerPrefs.SetInt("forward_2", (int)(KeyCode.UpArrow));
         PlayerPrefs.SetInt("backward_1", (int)(KeyCode.S));
@@ -26,6 +28,8 @@ public class Bindings : MonoBehaviour
         PlayerPrefs.SetInt("left_2", (int)(KeyCode.LeftArrow));
         PlayerPrefs.SetInt("right_1", (int)(KeyCode.D));
         PlayerPrefs.SetInt("right_2", (int)(KeyCode.RightArrow));
+        PlayerPrefs.SetInt("sprint_1", (int)(KeyCode.LeftShift));
+        //Menu
         PlayerPrefs.SetInt("select_1", (int)(KeyCode.Mouse0));
         PlayerPrefs.SetInt("select_2", (int)(KeyCode.Return));
         PlayerPrefs.SetInt("back_1", (int)(KeyCode.Escape));
@@ -36,6 +40,7 @@ public class Bindings : MonoBehaviour
     public static void initializeKeys()
     {
         controllerType = PlayerPrefs.GetInt("controllerType");
+        //Movement
         forward[0] = (KeyCode)(PlayerPrefs.GetInt("forward_1"));
         forward[1] = (KeyCode)(PlayerPrefs.GetInt("forward_2"));
         forward[2] = (KeyCode)(PlayerPrefs.GetInt("forward_3"));
@@ -48,6 +53,10 @@ public class Bindings : MonoBehaviour
         right[0] = (KeyCode)(PlayerPrefs.GetInt("right_1"));
         right[1] = (KeyCode)(PlayerPrefs.GetInt("right_2"));
         right[2] = (KeyCode)(PlayerPrefs.GetInt("right_3"));
+        sprint[0] = (KeyCode)(PlayerPrefs.GetInt("sprint_1"));
+        sprint[1] = (KeyCode)(PlayerPrefs.GetInt("sprint_2"));
+        sprint[2] = (KeyCode)(PlayerPrefs.GetInt("sprint_3"));
+        //Menu
         select[0] = (KeyCode)(PlayerPrefs.GetInt("select_1"));
         select[1] = (KeyCode)(PlayerPrefs.GetInt("select_2"));
         select[2] = (KeyCode)(PlayerPrefs.GetInt("select_3"));
@@ -119,6 +128,19 @@ public class Bindings : MonoBehaviour
         set
         {
             right = value;
+        }
+    }
+
+    public static KeyCode[] Sprint
+    {
+        get
+        {
+            return sprint;
+        }
+
+        set
+        {
+            sprint = value;
         }
     }
 

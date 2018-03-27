@@ -163,7 +163,7 @@
 -define:ENABLE_VSTU
 -define:UNITY_PRO_LICENSE
 "Assets/Scripts/C# Tools/Pair.cs"
-Assets/Scripts/Controls/CameraRotation.cs
+Assets/Scripts/Controls/CameraFollowBehavior.cs
 Assets/Scripts/Controls/FieldControls.cs
 Assets/Scripts/DevTools/CommandConsole/CmdConsoleLarge.cs
 Assets/Scripts/DevTools/CommandConsole/CmdConsoleManagement.cs
