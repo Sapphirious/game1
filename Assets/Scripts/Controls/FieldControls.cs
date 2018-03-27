@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class FieldControls : MonoBehaviour
 {
-    public float movementSpeed = 16f;
-    public float sprintSpeed = 26f;
+    public float movementSpeed = 7f;
+    public float sprintSpeed = 13f;
     private bool sprinting = false;
 
     private CharacterController character;
@@ -27,26 +27,27 @@ public class FieldControls : MonoBehaviour
         //If the player is pressing forward
         if (Input.GetKey(Bindings.Forward[0]) || Input.GetKey(Bindings.Forward[1]) || Input.GetKey(Bindings.Forward[2]))
         {
-            moveDirection += this.transform.forward * Time.deltaTime * ((sprinting == true) ? sprintSpeed : movementSpeed);
+            moveDirection += this.transform.forward;
         }
         //If the player is pressing backwards
         if (Input.GetKey(Bindings.Backward[0]) || Input.GetKey(Bindings.Backward[1]) || Input.GetKey(Bindings.Backward[2]))
         {
-            moveDirection -= this.transform.forward * Time.deltaTime * ((sprinting == true) ? sprintSpeed : movementSpeed);
+            moveDirection -= this.transform.forward;
         }
         //If the player is pressing right
         if (Input.GetKey(Bindings.Right[0]) || Input.GetKey(Bindings.Right[1]) || Input.GetKey(Bindings.Right[2]))
         {
-            moveDirection += this.transform.right * Time.deltaTime * ((sprinting == true) ? sprintSpeed : movementSpeed);
+            moveDirection += this.transform.right;
         }
         //If the player is pressing left
         if (Input.GetKey(Bindings.Left[0]) || Input.GetKey(Bindings.Left[1]) || Input.GetKey(Bindings.Left[2]))
         {
-            moveDirection -= this.transform.right * Time.deltaTime * ((sprinting == true) ? sprintSpeed : movementSpeed);
+            moveDirection -= this.transform.right;
         }
 
         //Gravity
         moveDirection.y -= 100f * Time.deltaTime;
+        //Movement call
         character.Move(moveDirection * ((sprinting == true) ? sprintSpeed : movementSpeed) * Time.deltaTime);
     }
 
