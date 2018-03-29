@@ -65,17 +65,20 @@ public class FieldControls : MonoBehaviour
             keyPressed = 2;
         }
 
+        Vector3 movement = Vector3.zero;
+
         if (keyPressed != 0)
         {
             this.transform.Rotate(rotation);
             camFollowPoint.localEulerAngles -= rotation;
 
-            //Gravity
-            Vector3 movement = transform.forward;
-            movement.y -= 100f * Time.deltaTime;
-            //Movement Call
-            character.Move(movement * ((sprinting == true) ? sprintSpeed : movementSpeed) * Time.deltaTime);
+            movement = transform.forward;
         }
+
+        //Gravity
+        movement.y -= 100f * Time.deltaTime;
+        //Movement Call
+        character.Move(movement * ((sprinting == true) ? sprintSpeed : movementSpeed) * Time.deltaTime);
     }
 
     private void Update()
