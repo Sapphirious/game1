@@ -162,6 +162,7 @@
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
 -define:UNITY_PRO_LICENSE
+Assets/Entities/Characters/Stats.cs
 "Assets/Scripts/C# Tools/Pair.cs"
 Assets/Scripts/Controls/CameraFollowBehavior.cs
 Assets/Scripts/Controls/FieldControls.cs

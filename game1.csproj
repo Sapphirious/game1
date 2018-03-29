@@ -235,6 +235,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Entities\Characters\CharStats.cs" />
     <Compile Include="Assets\Scripts\C# Tools\Pair.cs" />
     <Compile Include="Assets\Scripts\Controls\CameraFollowBehavior.cs" />
     <Compile Include="Assets\Scripts\Controls\FieldControls.cs" />
