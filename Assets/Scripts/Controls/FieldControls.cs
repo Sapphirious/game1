@@ -49,19 +49,23 @@ public class FieldControls : MonoBehaviour
             rotation += new Vector3(0, camFollowPoint.localEulerAngles.y - ((axis[0] == true) ? 0 : 180), 0);//0 for forward, 180 for backwards
         }
 
-        //If the player is pressing right
-        if ((Input.GetKey(Bindings.Right[0]) || Input.GetKey(Bindings.Right[1]) || Input.GetKey(Bindings.Right[2])) 
-            && !((Input.GetKey(Bindings.Left[0]) || Input.GetKey(Bindings.Left[1]) || Input.GetKey(Bindings.Left[2]))))
+        //If the player is pressing right when the last key was left
+        if ((axis[1] == true) ? ((Input.GetKey(Bindings.Right[0]) || Input.GetKey(Bindings.Right[1]) || Input.GetKey(Bindings.Right[2]))
+            && !(Input.GetKey(Bindings.Left[0]) || Input.GetKey(Bindings.Left[1]) || Input.GetKey(Bindings.Left[2])))
+            //Check if left is still being pressed
+            : ((Input.GetKey(Bindings.Left[0]) || Input.GetKey(Bindings.Left[1]) || Input.GetKey(Bindings.Left[2]))
+            && !(Input.GetKey(Bindings.Right[0]) || Input.GetKey(Bindings.Right[1]) || Input.GetKey(Bindings.Right[2]))))
         {
-            rotation += new Vector3(0, ((keyPressed != 0) ? 45*keyPressed : camFollowPoint.localEulerAngles.y + 90), 0);
+            rotation += new Vector3(0, ((keyPressed != 0) ? ((axis[1] == true) ? 45 : -45) * keyPressed : camFollowPoint.localEulerAngles.y - ((axis[1] == true) ? -90 : 90)), 0);
             axis[1] = (axis[1] == true) ? false : true;
             keyPressed = 2;
         }
-        //If the player is pressing left
-        if ((Input.GetKey(Bindings.Left[0]) || Input.GetKey(Bindings.Left[1]) || Input.GetKey(Bindings.Left[2])) 
-            && !((Input.GetKey(Bindings.Right[0]) || Input.GetKey(Bindings.Right[1]) || Input.GetKey(Bindings.Right[2]))))
+        //If the player is pressing left when the last key was right
+        else if (((axis[1] == true) ? Input.GetKey(Bindings.Left[0]) || Input.GetKey(Bindings.Left[1]) || Input.GetKey(Bindings.Left[2]) 
+            //check if right still being pressed
+            : (Input.GetKey(Bindings.Right[0]) || Input.GetKey(Bindings.Right[1]) || Input.GetKey(Bindings.Right[2]))))
         {
-            rotation += new Vector3(0, ((keyPressed != 0) ? -45*keyPressed : camFollowPoint.localEulerAngles.y - 90), 0);
+            rotation += new Vector3(0, ((keyPressed != 0) ? ((axis[1] == true) ? -45 : 45)*keyPressed : camFollowPoint.localEulerAngles.y - ((axis[1] == true) ? 90 : -90)), 0);
             keyPressed = 2;
         }
 
