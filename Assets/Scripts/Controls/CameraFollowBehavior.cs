@@ -33,7 +33,7 @@ public class CameraFollowBehavior : MonoBehaviour
         castPoint.localPosition = new Vector3(0, castPoint.localPosition.y, ((near == true) ? -followDistanceNear : -followDistanceFar) * distanceMod);
 
         RaycastHit[] hits = Physics.RaycastAll(followPoint.position, castPoint.position-followPoint.position, Vector3.Distance(followPoint.position, castPoint.position));
-        Debug.DrawRay(followPoint.position, castPoint.position - followPoint.position, Color.red, 2.5f);
+        //Debug.DrawRay(followPoint.position, castPoint.position - followPoint.position, Color.red, 2.5f);
         /*Debug.Log("Ray hits: " + hits.Length);
 
         for (int i = 0; i < hits.Length; i++)
@@ -43,7 +43,7 @@ public class CameraFollowBehavior : MonoBehaviour
 
         if (hits.Length == 0 || hits.Length == 1)
         {
-            this.transform.position = castPoint.position;
+            this.transform.localPosition = castPoint.localPosition;
             return;
         }
         for(int i = 0; i < hits.Length; i++)
@@ -67,19 +67,19 @@ public class CameraFollowBehavior : MonoBehaviour
 
         float mouseY = Input.GetAxis("Mouse Y") * mouseSpeedY;
         this.transform.localPosition = new Vector3(0, this.transform.localPosition.y + mouseY * Time.deltaTime, this.transform.localPosition.z);
-        castPoint.localPosition = new Vector3(0, this.transform.localPosition.y + mouseY * Time.deltaTime, this.transform.localPosition.z);
+        castPoint.localPosition = new Vector3(0, castPoint.localPosition.y + mouseY * Time.deltaTime, castPoint.localPosition.z);
 
         //Upper cap for the Y
         if (this.transform.localPosition.y > 4)
         {
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, 4, this.transform.localPosition.z);
-            castPoint.localPosition = new Vector3(this.transform.localPosition.x, 4, this.transform.localPosition.z);
+            castPoint.localPosition = new Vector3(castPoint.localPosition.x, 4, castPoint.localPosition.z);
         }
         //Lower limit for the Y
         else if (this.transform.localPosition.y < -4)
         {
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, -4, this.transform.localPosition.z);
-            castPoint.localPosition = new Vector3(this.transform.localPosition.x, -4, this.transform.localPosition.z);
+            castPoint.localPosition = new Vector3(castPoint.localPosition.x, -4, castPoint.localPosition.z);
         }
 
         //Formula for distance mod
