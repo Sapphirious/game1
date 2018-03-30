@@ -120,15 +120,15 @@ public abstract class CharStats : MonoBehaviour
         {
             LVL++;
             EXPToNextLVL = Mathf.RoundToInt((LVL * 0.8f) * ((5000 * EXPGrowthMod) * (LVL * 0.3f)));
-            maxHP = (int)(LVL * (106f * (HPGrowthMod * 1.09f)) + (1102 * (HPGrowthMod * 0.68f)));
+            maxHP = (int)(LVL * (106f * (HPGrowthMod * 1.08f)) + (1102 * (HPGrowthMod * 0.68f)));
             maxMP = (int)(LVL * (1.472f * MPGrowthMod) + (325f * (MPGrowthMod * 0.92f)));
             STR = (short) (LVL * (7 * STRGrowthMod) + (50 * (STRGrowthMod * 0.5f)));
-            DEF = (short)(LVL * (6 * DEFGrowthMod) + (50 * (DEFGrowthMod * 0.5f)));
+            DEF = (short)(LVL * (6.1f * DEFGrowthMod) + (50 * (DEFGrowthMod * 0.5f)));
             MAK = (short)(LVL * (4.6f * MAKGrowthMod) + (50 * (MAKGrowthMod * 0.5f)));
-            MAR = (short)(LVL * (4 * MARGrowthMod) + (50 * (MARGrowthMod * 0.5f)));
-            SPD = (short)(LVL * (1.76f * SPDGrowthMod) + (12 * (SPDGrowthMod * 0.6f)));
-            DEX = (short)(LVL * (0.8f * DEXGrowthMod) + (8.67f * (DEXGrowthMod * 0.6f)));
-            AGL = (short)(LVL * (0.72f * AGLGrowthMod) + (8.9f * (AGLGrowthMod * 0.62f)));
+            MAR = (short)(LVL * (3.96f * MARGrowthMod) + (50 * (MARGrowthMod * 0.5f)));
+            SPD = (short)(LVL * (0.58f * SPDGrowthMod) + (40 * (SPDGrowthMod * 0.6f)));
+            DEX = (short)(LVL * (0.38f * DEXGrowthMod) + (26 * (DEXGrowthMod * 0.6f)));
+            AGL = (short)(LVL * (0.26f * AGLGrowthMod) + (16 * (AGLGrowthMod * 0.62f)));
         }
     }
 
